@@ -72,7 +72,7 @@ class HardwareButtonsWatcherManager: PluginRegistry.ActivityResultListener {
     private fun registerActivityLifecycleCallbacksIfNeeded() {
         if (activityLifecycleCallbacks == null) {
             activityLifecycleCallbacks = object: EmptyActivityLifecycleCallbacks() {
-                override fun onActivityStarted(activity: Activity?) {
+                override fun onActivityStarted(activity: FragmentActivity?) {
                     currentActivity = activity
 
                     // attach necessary watchers
@@ -81,7 +81,7 @@ class HardwareButtonsWatcherManager: PluginRegistry.ActivityResultListener {
                     attachScreenOffWatcherIfNeeded()
                 }
 
-                override fun onActivityStopped(activity: Activity?) {
+                override fun onActivityStopped(activity: FragmentActivity?) {
                     if (currentActivity?.equals(activity) == true) {
                         // detach all watchers
                         detachKeyWatcher()
@@ -91,7 +91,7 @@ class HardwareButtonsWatcherManager: PluginRegistry.ActivityResultListener {
                     }
                 }
 
-                override fun onActivityDestroyed(activity: Activity?) {
+                override fun onActivityDestroyed(activity: FragmentActivity?) {
                     if (currentActivity?.equals(activity) == true) {
                         currentActivity = null
                         userDeniedDrawOverlaysPermission = false
